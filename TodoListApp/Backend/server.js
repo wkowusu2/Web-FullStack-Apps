@@ -1,8 +1,14 @@
 require('dotenv').config();
 const express = require('express'); 
-const databaseConnect = require('./configs/db-config')
+const databaseConnect = require('./configs/db-config'); 
+const authMiddleware = require('./routes/auth-route')
+
 
 const app = express(); 
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use("/api/v1/users", authMiddleware);
 
 const port = process.env.PORT || 5000;  
 
